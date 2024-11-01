@@ -1,7 +1,10 @@
 // Navbar.js
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaHome, FaInfoCircle, FaEnvelope, FaServicestack, FaDollarSign, FaSun, FaMoon, FaArrowLeft, FaBars, FaBookOpen, FaUserAlt } from 'react-icons/fa';
+import { FaHome, FaInfoCircle, FaEnvelope, FaServicestack, FaDollarSign, FaSun, FaMoon, FaArrowLeft, FaBars, FaBookOpen, FaUserAlt } from 'react-icons/fa'; 
+import siteLogo from '../assets/react.svg' 
+import { Link } from 'react-router-dom';
+
 
 const Navbar = ({ toggleTheme, isDarkTheme }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -13,7 +16,8 @@ const Navbar = ({ toggleTheme, isDarkTheme }) => {
       <div className={`${isCollapsed ? 'w-16' : 'w-64'} h-full p-5 flex flex-col`}>
         {/* Logo & Hamburger Icon */}
         <div className="flex items-center mb-5">
-          {!isCollapsed && <div className="text-2xl font-bold">CyberHome</div>}
+            <Link to='/'><img className='w-7' src={siteLogo} alt="logo" /></Link>
+          {!isCollapsed && <Link to='/'><div className="text-2xl font-normal p-2">CyberHome</div></Link>} 
           <button onClick={toggleCollapse} className="ml-auto text-xl">
             <FaBars />
           </button>
