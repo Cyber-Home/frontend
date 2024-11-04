@@ -9,7 +9,8 @@ const DashboardLayout = ({ children }) => {
       <Sidebar />
       {/* Main Content Area */}
       <div className="flex-grow p-6">{children}</div>
-    </div>
+    </div> 
+
   );
 };
 

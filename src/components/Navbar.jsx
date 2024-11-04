@@ -1,8 +1,8 @@
 // Navbar.js
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaHome, FaInfoCircle, FaEnvelope, FaServicestack, FaDollarSign, FaSun, FaMoon, FaArrowLeft, FaBars, FaBookOpen, FaUserAlt } from 'react-icons/fa'; 
-import siteLogo from '../assets/react.svg' 
+import { FaHome, FaInfoCircle, FaEnvelope, FaServicestack, FaDollarSign, FaSun, FaMoon, FaArrowLeft, FaBars, FaBookOpen, FaUserAlt } from 'react-icons/fa';
+import siteLogo from '../assets/react.svg'
 import { Link } from 'react-router-dom';
 
 
@@ -12,12 +12,12 @@ const Navbar = ({ toggleTheme, isDarkTheme }) => {
   const toggleCollapse = () => setIsCollapsed(!isCollapsed);
 
   return (
-    <div className={`h-screen transition-width duration-300 ${isDarkTheme ? 'bg-gray-800' : 'bg-green-800'}`}>
+    <div className={`h-screen transition-width duration-300 ${isDarkTheme ? 'bg-gray-800' : 'bg-green-800 fixed'}`}>
       <div className={`${isCollapsed ? 'w-16' : 'w-64'} h-full p-5 flex flex-col`}>
         {/* Logo & Hamburger Icon */}
         <div className="flex items-center mb-5">
-            <Link to='/'><img className='w-7' src={siteLogo} alt="logo" /></Link>
-          {!isCollapsed && <Link to='/'><div className="text-2xl font-normal p-2">CyberHome</div></Link>} 
+          <Link to='/'><img className='w-7' src={siteLogo} alt="logo" /></Link>
+          {!isCollapsed && <Link to='/'><div className="text-2xl font-normal p-2">CyberHome</div></Link>}
           <button onClick={toggleCollapse} className="ml-auto text-xl">
             <FaBars />
           </button>
@@ -40,6 +40,8 @@ const Navbar = ({ toggleTheme, isDarkTheme }) => {
             <FaArrowLeft className="mr-2" />
           </button>
         )}
+
+        <Link to="/admin/dashboard">Admin Dashboard</Link>
 
         {/* Theme Switch */}
         <button
