@@ -27,7 +27,7 @@ const AdminDashboard = ({ isDarkTheme, toggleTheme }) => {
     }, []);
 
     const handleLogout = () => {
-        navigate('/');
+        navigate('/admin');
     };
 
     if (loading) {

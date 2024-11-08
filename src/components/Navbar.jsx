@@ -1,23 +1,15 @@
-// Navbar.js
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { FaHome, FaInfoCircle, FaEnvelope, FaServicestack, FaDollarSign, FaSun, FaMoon, FaArrowLeft, FaBars, FaBookOpen, FaUserAlt } from 'react-icons/fa';
-import siteLogo from '../assets/react.svg'
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaHome, FaInfoCircle, FaEnvelope, FaServicestack, FaDollarSign, FaSun, FaMoon, FaArrowLeft, FaBars, FaBookOpen, FaUserAlt } from 'react-icons/fa';
+import siteLogo from '../assets/daily-spot-logo.png';
 
-
-const Navbar = ({ toggleTheme, isDarkTheme }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const toggleCollapse = () => setIsCollapsed(!isCollapsed);
-
+const Navbar = ({ isCollapsed, toggleCollapse, isDarkTheme, toggleTheme }) => {
   return (
-    <div className={`h-screen transition-width duration-300 ${isDarkTheme ? 'bg-gray-800' : 'bg-green-800 fixed'}`}>
+    <div className={`h-screen transition-all duration-300 ${isDarkTheme ? 'bg-gray-800' : 'bg-white fixed z-30'}`}>
       <div className={`${isCollapsed ? 'w-16' : 'w-64'} h-full p-5 flex flex-col`}>
         {/* Logo & Hamburger Icon */}
         <div className="flex items-center mb-5">
-          <Link to='/'><img className='w-7' src={siteLogo} alt="logo" /></Link>
-          {!isCollapsed && <Link to='/'><div className="text-2xl font-normal p-2">CyberHome</div></Link>}
+          <Link to='/'><img className='w-full h-full' src={siteLogo} alt="logo" /></Link>
           <button onClick={toggleCollapse} className="ml-auto text-xl">
             <FaBars />
           </button>
@@ -45,7 +37,7 @@ const Navbar = ({ toggleTheme, isDarkTheme }) => {
 
         {/* Theme Switch */}
         <button
-          className="mt-auto p-2 bg-gold-500 text-white rounded-md hover:bg-gold-600"
+          className="mt-auto p-2 bg-gold-500 text-[#04BE16] rounded-md hover:bg-gold-600"
           onClick={toggleTheme}
         >
           {isDarkTheme ? <FaSun /> : <FaMoon />}
@@ -55,16 +47,14 @@ const Navbar = ({ toggleTheme, isDarkTheme }) => {
   );
 };
 
-// Reusable NavItem component
 const NavItem = ({ to, icon, label, isCollapsed }) => (
-  <NavLink
+  <Link
     to={to}
-    className="flex items-center space-x-2 hover:bg-[#BE9835] p-2 rounded cursor-pointer text-white"
-    activeClassName="bg-green-700"
+    className="flex items-center space-x-2 hover:bg-[#F9DF00] p-2 rounded cursor-pointer text-[#04BE16]"
   >
     <div className="text-xl">{icon}</div>
     {!isCollapsed && <span>{label}</span>}
-  </NavLink>
+  </Link>
 );
 
 export default Navbar;
