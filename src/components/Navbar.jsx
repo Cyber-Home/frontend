@@ -33,7 +33,7 @@ const Navbar = ({ isCollapsed, toggleCollapse, isDarkTheme, toggleTheme }) => {
           </button>
         )}
 
-        <Link to="/admin/dashboard">Admin Dashboard</Link>
+        {/* <Link to="/admin/dashboard">Admin Dashboard</Link> */}
 
         {/* Theme Switch */}
         <button
