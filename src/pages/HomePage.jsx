@@ -65,7 +65,7 @@ const HomePage = () => {
               Welcome to Daily Spot!
             </Typography>
             <Typography variant="h6" sx={{ mb: 4 }}>
-              Your solution for all your home errands.
+              ...your daily chores simplified!
             </Typography>
 
             {/* Center Buttons: Services and Read More */}
@@ -93,11 +93,11 @@ const HomePage = () => {
 
           {/* Upper-right corner buttons: Get Started and Login */}
           <Box sx={{ position: 'absolute', top: 20, right: 20, zIndex: 10 }}>
-            <Button
+            <Button 
               variant="contained"
               color="primary"
               size="large"
-              sx={{ backgroundColor: '#04BE16', '&:hover': { backgroundColor: '#02A715' } }}
+              sx={{ backgroundColor: '#04BE16', mr:2, '&:hover': { backgroundColor: '#02A715' } }}
               onClick={() => setIsSignUpOpen(true)} // Open signup modal
             >
               Get Started
@@ -106,7 +106,7 @@ const HomePage = () => {
               variant="outlined"
               color="primary"
               size="large"
-              sx={{ borderColor: '#04BE16', color: '#04BE16', '&:hover': { borderColor: '#02A715', color: '#02A715' } }}
+              sx={{ borderColor: '#04BE16', color: '#04BE16', '&:hover': { borderColor: '#02A715',  color: '#FFFFFF', backgroundColor: '#F9DF00' } }}
               onClick={() => setIsLoginOpen(true)} // Open login modal
             >
               Login
@@ -119,7 +119,14 @@ const HomePage = () => {
       <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
 
       {/* Signup Modal */}
-      <SignUp isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
+      <SignUp isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} /> 
+
+        <section> 
+          <div className='flex'>
+
+         <h2>Who We Are</h2>
+          </div>
+        </section>
     </div>
   );
 };

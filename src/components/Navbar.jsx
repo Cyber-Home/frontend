@@ -21,9 +21,9 @@ const Navbar = ({ isCollapsed, toggleCollapse, isDarkTheme, toggleTheme }) => {
           <NavItem to="/about" icon={<FaInfoCircle />} label="About" isCollapsed={isCollapsed} />
           <NavItem to="/contact" icon={<FaEnvelope />} label="Contact" isCollapsed={isCollapsed} />
           <NavItem to="/services" icon={<FaServicestack />} label="Services" isCollapsed={isCollapsed} />
-          <NavItem to="/signup" icon={<FaBookOpen />} label="Register" isCollapsed={isCollapsed} />
+          {/* <NavItem to="/signup" icon={<FaBookOpen />} label="Register" isCollapsed={isCollapsed} />
           <NavItem to="/login" icon={<FaUserAlt />} label="Login" isCollapsed={isCollapsed} />
-          <NavItem to="/pricing" icon={<FaDollarSign />} label="Pricing" isCollapsed={isCollapsed} />
+          <NavItem to="/pricing" icon={<FaDollarSign />} label="Pricing" isCollapsed={isCollapsed} /> */}
         </nav>
 
         {/* Back Arrow Button */}
