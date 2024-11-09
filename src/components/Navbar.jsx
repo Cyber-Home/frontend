@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaInfoCircle, FaEnvelope, FaServicestack, FaDollarSign, FaSun, FaMoon, FaArrowLeft, FaBars, FaBookOpen, FaUserAlt } from 'react-icons/fa';
-import siteLogo from '../assets/daily-spot-logo.png';
+import siteLogo from '../assets/D-spot-logo.png';
 
 const Navbar = ({ isCollapsed, toggleCollapse, isDarkTheme, toggleTheme }) => {
   return (

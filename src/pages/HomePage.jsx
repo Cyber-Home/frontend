@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Box, Typography, Grid, Card, CardContent } from '@mui/material';
 import { motion } from 'framer-motion';
-import { School, ShoppingCart, LocalCarWash, CheckCircle, TaskAlt, AccessTime } from '@mui/icons-material';
+import { School, ShoppingCart, LocalCarWash, CheckCircle, TaskAlt, AccessTime, LocalLaundryService, LocalPharmacy, FoodBank, Kitchen } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import Login from '../components/login';
 import SignUp from '../components/signUp';
 import sliderImg1 from '../assets/img5.jpg';
 import sliderImg2 from '../assets/img4.jpg';
 import sliderImg3 from '../assets/img3.jpg';
-import aboutImg from '../assets/img2.jpg'; // About section image
-import howItWorksImg from '../assets/img1.jpg';
+import aboutImg from '../assets/img2.jpg';
+import howItWorksImg from '../assets/img1.jpg'; 
+import Footer from '../components/dashBoard/Footer';
 
 const HomePage = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentStepIndex, setCurrentStepIndex] = useState(0); // Step slider state
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const images = [sliderImg1, sliderImg2, sliderImg3];
 
   const steps = [
@@ -27,7 +28,7 @@ const HomePage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-      setCurrentStepIndex((prevIndex) => (prevIndex + 1) % steps.length); // Cycle through steps
+      setCurrentStepIndex((prevIndex) => (prevIndex + 1) % steps.length);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -35,7 +36,7 @@ const HomePage = () => {
   return (
     <div className="w-screen overflow-hidden">
       {/* Hero Section */}
-      <Box sx={{ height: '100vh', position: 'relative' }}>
+      <Box id='hero' sx={{ height: '100vh', position: 'relative' }}>
         <motion.div
           className="absolute inset-0"
           key={currentIndex}
@@ -111,7 +112,7 @@ const HomePage = () => {
                 variant="outlined"
                 color="primary"
                 size="large"
-                sx={{ borderColor: '#04BE16', color: '#04BE16', '&:hover': { borderColor: '#02A715', color: '#FFFFFF', backgroundColor: '#F9DF00' } }}
+                sx={{ borderColor: '#04BE16', mr:'40px', color: '#04BE16', '&:hover': { borderColor: '#02A715', color: '#FFFFFF', backgroundColor: '#F9DF00' } }}
                 onClick={() => setIsLoginOpen(true)}
               >
                 Login
@@ -122,29 +123,28 @@ const HomePage = () => {
       </Box>
 
       {/* About Section */}
-      <Box sx={{ padding: '40px', backgroundColor: '#F9F9F9' }}>
-        <Grid container spacing={4} className='m-20 pr-28 pl-28 pt-20'>
+      <Box sx={{ padding: '40px', backgroundColor: '#F9F9F9', padding: '120px'}}>
+        <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <img
               src={aboutImg}
-              alt="About Daily Spot"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '32px' }}
+              alt="About Us"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '40px' }}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h4" sx={{ textAlign: 'center', mb: 4 }}>
-              About Daily Spot
-            </Typography>
-            <Typography variant="body1" paragraph className='pt-2'>
-              At Daily Spot, we simplify your daily chores and errands so you can focus on what matters most.
-              Whether it's shopping, car washes, school drop-offs, or anything else that might get in your way,
-              we've got you covered. Our goal is to make your life easier by providing reliable, affordable,
-              and efficient services right at your doorstep.
-            </Typography>
-            <Typography variant="body1" paragraph>
-              With Daily Spot, you can rest assured that you're in good hands. Our team is dedicated to offering
-              exceptional customer service, ensuring you have a smooth experience every time. Get started today
-              and experience the convenience of having your tasks handled for you!
+          <Grid item xs={12} md={6}> 
+          <Typography variant="h4" gutterBottom sx={{ textAlign: 'left', mb: 4, pt: 5 }}>
+          About Us
+        </Typography>
+            <Typography variant="body1">
+              Daily Spot helps you handle daily chores like shopping, car washes, and child drop-offs. Let us manage
+              your tasks so you can focus on what matters most!
+              Daily Spot helps you handle daily chores like shopping, car washes, and child drop-offs. Let us manage
+              your tasks so you can focus on what matters most!
+              Daily Spot helps you handle daily chores like shopping, car washes, and child drop-offs. Let us manage
+              your tasks so you can focus on what matters most!
+              Daily Spot helps you handle daily chores like shopping, car washes, and child drop-offs. Let us manage
+              your tasks so you can focus on what matters most!
             </Typography>
           </Grid>
         </Grid>
@@ -152,37 +152,105 @@ const HomePage = () => {
 
       {/* Featured Services Section */}
       <Box sx={{ padding: '20px', mt: 8, ml: 18, mr: 18 }}>
-        <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
-          Featured Services
-        </Typography>
-        <Grid container spacing={4}>
-          {[{ title: 'School Drop Off', icon: <School />, link: '/services#school' },
-          { title: 'Shopping', icon: <ShoppingCart />, link: '/services#shopping' },
-          { title: 'Car Wash', icon: <LocalCarWash />, link: '/services#carwash' }].map((service, index) => (
-            <Grid item xs={12} sm={4} key={index}>
-              <motion.div whileHover={{ scale: 1.05 }}>
-                <Card sx={{ padding: '20px', textAlign: 'center', boxShadow: 3, transition: 'transform 0.3s' }}>
-                  {service.icon}
-                  <CardContent>
-                    <Typography variant="h5" gutterBottom>{service.title}</Typography>
-                    <Typography variant="body2">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </Typography>
-                    <Link to={service.link} style={{ textDecoration: 'none', color: '#04BE16', fontWeight: 'bold' }}>
-                      Learn More
-                    </Link>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </Grid>
-          ))}
-        </Grid>
-        <Box sx={{ textAlign: 'center', mt: 4 }}>
-          <Button variant="contained" color="primary" sx={{ backgroundColor: '#04BE16', '&:hover': { backgroundColor: '#02A715' } }} href="/services">
-            View All Services
-          </Button>
-        </Box>
-      </Box>
+  <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+    Our Services
+  </Typography>
+  <Grid container spacing={4}>
+    {/* School Drop-Off Service Card */}
+    <Grid item xs={12} md={4}>
+      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+          <School fontSize="large" sx={{ color: '#02A715' }} />
+          <Typography variant="h6" sx={{ mt: 2 }}>
+            School Drop-Off
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Convenient school transportation for your child.
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
+
+    {/* Shopping Services Card */}
+    <Grid item xs={12} md={4}>
+      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+          <ShoppingCart fontSize="large" sx={{ color: '#02A715' }} />
+          <Typography variant="h6" sx={{ mt: 2 }}>
+            Shopping Services
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            We’ll take care of your shopping needs, big or small.
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
+
+    {/* Car Wash Service Card */}
+    <Grid item xs={12} md={4}>
+      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+          <LocalCarWash fontSize="large" sx={{ color: '#02A715' }} />
+          <Typography variant="h6" sx={{ mt: 2 }}>
+            Car Wash
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Professional car washing services at your convenience.
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
+  </Grid>
+</Box>
+      <Box sx={{ padding: '20px', mt: 8, ml: 18, mr: 18 }}>
+  <Grid container spacing={4}>
+    {/* Laundry Service Card */}
+    <Grid item xs={12} md={4}>
+      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+          <LocalLaundryService fontSize="large" sx={{ color: '#02A715' }} />
+          <Typography variant="h6" sx={{ mt: 2 }}>
+            Laundry
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Let's handle the tedious washing and ironing
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
+
+    {/* Pharmacy Card */}
+    <Grid item xs={12} md={4}>
+      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+          <LocalPharmacy fontSize="large" sx={{ color: '#02A715' }} />
+          <Typography variant="h6" sx={{ mt: 2 }}>
+            Medics
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Got a routine prescription? We can help you get it in your comfort zone
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
+
+    {/* Food-stuff processing Service Card */}
+    <Grid item xs={12} md={4}>
+      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+          <Kitchen fontSize="large" sx={{ color: '#02A715' }} />
+          <Typography variant="h6" sx={{ mt: 2 }}>
+            Food Stuff Prep
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+           We help clients prepare food stuffs amd make them ready for cooking by washing, peeling and chopping of food items like vegtables, tubers etc on request
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
+  </Grid>
+</Box>
+
 
       {/* How It Works Section */}
       <Box sx={{ padding: '20px', mt: 8, ml: 18, mr: 18 }}>
@@ -192,7 +260,7 @@ const HomePage = () => {
         <Grid container spacing={2}>
           {/* Left Column: Text Slider */}
           <Grid item xs={12} md={6}>
-            <Box sx={{ backgroundColor: '#04BE16', padding: 6, borderRadius: '8px', mt: 10, maxHeight: '400px', overflow: 'hidden' }}>
+            <Box sx={{ backgroundColor: '#4FC35D', padding: 18, borderRadius: '8px', mt: 0, maxHeight: '400px', overflow: 'hidden', color: 'white' }}>
               <motion.div
                 key={currentStepIndex}
                 initial={{ opacity: 0 }}
@@ -206,6 +274,16 @@ const HomePage = () => {
                 <Typography variant="body1" sx={{ mb: 2 }}>
                   {steps[currentStepIndex].description}
                 </Typography>
+                {currentStepIndex === 0 && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ backgroundColor: '#04BE16', mt: 2, '&:hover': { backgroundColor: '#02A715' } }}
+                    onClick={() => setIsSignUpOpen(true)}
+                  >
+                    Register
+                  </Button>
+                )}
               </motion.div>
             </Box>
           </Grid>
@@ -215,15 +293,18 @@ const HomePage = () => {
             <img
               src={howItWorksImg}
               alt="How It Works"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '32px' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
             />
           </Grid>
         </Grid>
       </Box>
 
-      {/* Modals */}
+      {/* Login and SignUp Modals */}
       <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
       <SignUp isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
+
+      {/* Footer starts here */}
+      <Footer className='mt-[10rem]'/>
     </div>
   );
 };
