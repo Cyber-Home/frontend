@@ -121,9 +121,8 @@ const HomePage = () => {
         </motion.div>
       </Box>
 
-      {/* About Section - New addition */}
+      {/* About Section */}
       <Box sx={{ padding: '40px', backgroundColor: '#F9F9F9' }}>
-
         <Grid container spacing={4} className='m-20 pr-28 pl-28 pt-20'>
           <Grid item xs={12} md={6}>
             <img
@@ -159,25 +158,24 @@ const HomePage = () => {
         <Grid container spacing={4}>
           {[{ title: 'School Drop Off', icon: <School />, link: '/services#school' },
           { title: 'Shopping', icon: <ShoppingCart />, link: '/services#shopping' },
-          { title: 'Car Wash', icon: <LocalCarWash />, link: '/services#carwash' }]
-            .map((service, index) => (
-              <Grid item xs={12} sm={4} key={index}>
-                <motion.div whileHover={{ scale: 1.05 }}>
-                  <Card sx={{ padding: '20px', textAlign: 'center', boxShadow: 3, transition: 'transform 0.3s' }}>
-                    {service.icon}
-                    <CardContent>
-                      <Typography variant="h5" gutterBottom>{service.title}</Typography>
-                      <Typography variant="body2">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </Typography>
-                      <Link to={service.link} style={{ textDecoration: 'none', color: '#04BE16', fontWeight: 'bold' }}>
-                        Learn More
-                      </Link>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </Grid>
-            ))}
+          { title: 'Car Wash', icon: <LocalCarWash />, link: '/services#carwash' }].map((service, index) => (
+            <Grid item xs={12} sm={4} key={index}>
+              <motion.div whileHover={{ scale: 1.05 }}>
+                <Card sx={{ padding: '20px', textAlign: 'center', boxShadow: 3, transition: 'transform 0.3s' }}>
+                  {service.icon}
+                  <CardContent>
+                    <Typography variant="h5" gutterBottom>{service.title}</Typography>
+                    <Typography variant="body2">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </Typography>
+                    <Link to={service.link} style={{ textDecoration: 'none', color: '#04BE16', fontWeight: 'bold' }}>
+                      Learn More
+                    </Link>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Grid>
+          ))}
         </Grid>
         <Box sx={{ textAlign: 'center', mt: 4 }}>
           <Button variant="contained" color="primary" sx={{ backgroundColor: '#04BE16', '&:hover': { backgroundColor: '#02A715' } }} href="/services">
@@ -202,24 +200,30 @@ const HomePage = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1 }}
               >
-                <Typography variant="h6" sx={{ color: 'white', mb: 2 }}>
-                  {steps[currentStepIndex].icon} {steps[currentStepIndex].title}
+                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+                  {steps[currentStepIndex].title}
                 </Typography>
-                <Typography variant="body1" sx={{ color: 'white' }}>
+                <Typography variant="body1" sx={{ mb: 2 }}>
                   {steps[currentStepIndex].description}
                 </Typography>
               </motion.div>
             </Box>
           </Grid>
+
           {/* Right Column: Image */}
           <Grid item xs={12} md={6}>
-            <img src={howItWorksImg} alt="How It Works" style={{ width: '100%', height: 'auto', borderRadius: '8px' }} />
+            <img
+              src={howItWorksImg}
+              alt="How It Works"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '32px' }}
+            />
           </Grid>
         </Grid>
       </Box>
 
-      <Login open={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
-      <SignUp open={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
+      {/* Modals */}
+      <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      <SignUp isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
     </div>
   );
 };
