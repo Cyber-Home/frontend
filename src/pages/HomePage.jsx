@@ -11,6 +11,7 @@ import sliderImg3 from '../assets/img3.jpg';
 import aboutImg from '../assets/img2.jpg';
 import howItWorksImg from '../assets/img1.jpg'; 
 import Footer from '../components/dashBoard/Footer';
+import LogoMarquee from '../components/LogoMarquee';
 
 const HomePage = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -301,7 +302,9 @@ const HomePage = () => {
 
       {/* Login and SignUp Modals */}
       <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
-      <SignUp isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
+      <SignUp isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} /> 
+
+        <LogoMarquee />
 
       {/* Footer starts here */}
       <Footer className='mt-[10rem]'/>
