@@ -10,9 +10,9 @@ import AdminRoute from './layouts/AdminRoute';
 import Unauthorized from './components/dashBoard/admin/UnAuthorized';
 import { AuthProvider, useAuth } from './AuthContext';
 import AdminDashboard from './components/dashBoard/admin/AdminDashboard'; 
-import AboutPage from './pages/AboutPage'
-import ServicesPage from './pages/ServicesPage' 
-import ContactPage from './pages/ContactPage' 
+import AboutPage from './pages/AboutPage';
+import ServicesPage from './pages/ServicesPage'; 
+import ContactPage from './pages/ContactPage'; 
 
 // Main App Component
 function App() {
@@ -31,8 +31,6 @@ function App() {
   const shouldShowNavbar = (pathname) => {
     return !pathname.startsWith('/admin') && !pathname.startsWith('/dashboard');
   };
-
-  // console.log("App component is rendering");
 
   return (
     <AuthProvider>
@@ -57,7 +55,8 @@ const Content = ({ toggleTheme, isDarkTheme, shouldShowNavbar, isCollapsed, setI
   const location = useLocation();
   const { isAuthenticated, login } = useAuth();
 
-  console.log("Content component is rendering with pathname:", location.pathname);
+  // Temporary mock: if the API is not ready, we can assume the user is logged in
+  const mockAuthenticated = true; // Set this to true for now to access /dashboard without login
 
   return (
     <div className={`flex ${isDarkTheme ? 'bg-gray-900' : 'bg-white'} transition-all duration-300`}>
@@ -79,7 +78,9 @@ const Content = ({ toggleTheme, isDarkTheme, shouldShowNavbar, isCollapsed, setI
           <Route path="/contact" element={<ContactPage />} /> 
           <Route path="/signup" element={<SignUp isOpen={isSignUpModalOpen} onClose={() => setIsSignUpModalOpen(false)} />} />
           <Route path="/login" element={<Login setIsSignUpModalOpen={setIsSignUpModalOpen} login={login} />} />
-          <Route path="/dashboard" element={isAuthenticated ? <UserDashboard isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} /> : <Navigate to="/login" />} />
+          
+          {/* Access /dashboard without login for now */}
+          <Route path="/dashboard" element={mockAuthenticated ? <UserDashboard isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} /> : <Navigate to="/login" />} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />

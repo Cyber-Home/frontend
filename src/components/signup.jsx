@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions, 
+  DialogActions,
   Button,
   TextField,
   IconButton,
   Typography,
   Chip,
+  Grid
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import siteLogo from '../assets/d-spot-logo.png';
 
-const SignUp = ({ isOpen, onClose }) => {
+const SignUp = ({ isOpen, onClose, showLoginModal }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -61,8 +62,9 @@ const SignUp = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="md" sx={{ zIndex: 1301 }}> {/* Increased z-index */}
-      <DialogTitle>
+    <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="md" sx={{ zIndex: 1301 }}>
+      <DialogTitle className="text-center"> 
+        <img src={siteLogo} alt="The DailySpot" className="w-40 ml-80" />
         Register Here
         <IconButton onClick={onClose} style={{ position: 'absolute', right: 8, top: 8 }}>
           <CloseIcon />
@@ -80,47 +82,90 @@ const SignUp = ({ isOpen, onClose }) => {
               This is the beginning of a simplified day...
             </Typography>
 
-            {/* Form Fields */}
-            <TextField
-              label="First Name"
-              name="firstName"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              value={formData.firstName}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Last Name"
-              name="lastName"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              value={formData.lastName}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Home Address"
-              name="homeAddress"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              value={formData.homeAddress}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Phone Number"
-              name="phoneNumber"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-            />
-            
+            {/* Grid layout for side-by-side fields */}
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  label="First Name"
+                  name="firstName"
+                  fullWidth
+                  required
+                  variant="outlined"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Last Name"
+                  name="lastName"
+                  fullWidth
+                  required
+                  variant="outlined"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Home Address"
+                  name="homeAddress"
+                  fullWidth
+                  required
+                  variant="outlined"
+                  value={formData.homeAddress}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Phone Number"
+                  name="phoneNumber"
+                  fullWidth
+                  required
+                  variant="outlined"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="ID Number"
+                  name="nationalId"
+                  fullWidth
+                  required
+                  variant="outlined"
+                  value={formData.nationalId}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="outlined"
+                  component="label"
+                  fullWidth
+                  style={{ marginTop: '1rem' }}
+                >
+                  Upload ID
+                  <input
+                    type="file"
+                    name="idUpload"
+                    hidden
+                    accept="image/*,application/pdf"
+                    onChange={handleChange}
+                  />
+                </Button>
+                {formData.idUpload && (
+                  <Typography variant="caption" display="block" align="center">
+                    {formData.idUpload.name}
+                  </Typography>
+                )}
+              </Grid>
+            </Grid>
+
             {/* Area of Help with Chips */}
             <TextField
-              label="Add Area of Help"
+              label="Add Areas of Help. eg. Shopping"
               value={areaInput}
               fullWidth
               margin="normal"
@@ -145,6 +190,12 @@ const SignUp = ({ isOpen, onClose }) => {
               <Button onClick={onClose} color="secondary">Cancel</Button>
               <Button type="submit" color="primary">Submit</Button>
             </DialogActions>
+            <Typography align="center">
+              Have an Account Already?{' '}
+              <Button color="primary" onClick={showLoginModal}>
+                Login
+              </Button>
+            </Typography>
           </form>
         )}
       </DialogContent>

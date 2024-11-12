@@ -1,8 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Swal from 'sweetalert2'; // Import SweetAlert2
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
-const Login = ({ isOpen, onClose }) => {
+const Login = ({ isOpen, onClose, showSignUpModal, onLogout }) => {
   const modalRef = useRef(null);
+  const navigate = useNavigate(); // Initialize the navigate function
 
   // Close modal if clicking outside of the modal
   useEffect(() => {
@@ -23,8 +26,25 @@ const Login = ({ isOpen, onClose }) => {
   }, [isOpen, onClose]);
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
     // Add login logic here
+  };
+
+  // Handle logout with SweetAlert2 and redirect
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will be logged out!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, log out',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onLogout(); // Call the onLogout function passed as a prop
+        navigate('/'); // Redirect to the home page after logout
+      }
+    });
   };
 
   return (
@@ -40,9 +60,9 @@ const Login = ({ isOpen, onClose }) => {
           onClick={() => onClose()}
         >
           <div
-            ref={modalRef} // Attach ref to modal content
+            ref={modalRef}
             className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative"
-            onClick={(e) => e.stopPropagation()} // Prevent close on click inside
+            onClick={(e) => e.stopPropagation()}
           >
             <button 
               onClick={onClose} 
@@ -66,7 +86,7 @@ const Login = ({ isOpen, onClose }) => {
               />
               <button
                 type="submit"
-                className="mt-6 w-full bg-green-600 text-white p-2 rounded-md hover:bg-green-600"
+                className="mt-6 w-full bg-[#04BE16] text-white p-2 rounded-md hover:bg-green-600"
               >
                 Login
               </button>
@@ -76,12 +96,25 @@ const Login = ({ isOpen, onClose }) => {
                 Do not have an account? 
                 <button 
                   type="button"
-                  onClick={onClose} // Close modal on signup click
+                  onClick={() => {
+                    onClose(); // Close login modal
+                    showSignUpModal(); // Open signup modal
+                  }}
                   className="text-[#166534] ml-1"
                 >
                   Register
                 </button>
               </p>
+            </div>
+
+            {/* Logout Button */}
+            <div className="mt-6 text-center">
+              <button
+                onClick={handleLogout}
+                className="w-full bg-red-600 text-white p-2 rounded-md hover:bg-red-700"
+              >
+                Logout
+              </button>
             </div>
           </div>
         </motion.div>

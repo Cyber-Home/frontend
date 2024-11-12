@@ -5,20 +5,20 @@ import Swal from 'sweetalert2';
 
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
-  const [task, setTask] = useState({ title: '', description: '', dueDate: new Date(), file: null });
+  const [task, setTask] = useState({
+    title: '',
+    description: '',
+    dueDate: new Date(),
+    file: null,
+    contactPerson: '',
+    phoneNumber: '',
+  });
   const [editingIndex, setEditingIndex] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
   const [serviceInput, setServiceInput] = useState('');
 
-  // Example services list
-  const services = [
-    'Laundry',
-    'Grocery Shopping',
-    'Dog Walking',
-    'House Cleaning',
-    'Tutoring'
-  ];
+  const services = ['Laundry', 'Grocery Shopping', 'Dog Walking', 'House Cleaning', 'Tutoring'];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,24 +38,21 @@ const TaskManager = () => {
     if (editingIndex !== null) {
       const updatedTasks = tasks.map((t, index) => (index === editingIndex ? task : t));
       setTasks(updatedTasks);
-      Swal.fire({
-        title: 'Task Updated!',
-        text: `You have successfully updated "${task.title}".`,
-        icon: 'success',
-        confirmButtonText: 'OK'
-      });
+      Swal.fire('Task Updated!', `Successfully updated "${task.title}".`, 'success');
     } else {
       setTasks([...tasks, task]);
-      Swal.fire({
-        title: 'Task Added!',
-        text: `You have successfully added "${task.title}" to your tasks.`,
-        icon: 'success',
-        confirmButtonText: 'OK'
-      });
+      Swal.fire('Task Added Successfully!', `One of our professionals will will reach out soon on your task titled "${task.title}".`, 'success');
     }
-    // Reset form
-    setTask({ title: '', description: '', dueDate: new Date(), file: null });
+    setTask({
+      title: '',
+      description: '',
+      dueDate: new Date(),
+      file: null,
+      contactPerson: '',
+      phoneNumber: '',
+    });
     setShowForm(false);
+    setEditingIndex(null);
   };
 
   const handleEdit = (index) => {
@@ -71,7 +68,7 @@ const TaskManager = () => {
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!'
+      cancelButtonText: 'No, cancel!',
     });
 
     if (result.isConfirmed) {
@@ -89,28 +86,30 @@ const TaskManager = () => {
   };
 
   const removeSelectedService = (service) => {
-    setSelectedServices(selectedServices.filter(s => s !== service));
+    setSelectedServices(selectedServices.filter((s) => s !== service));
   };
 
   return (
     <div>
-      <button onClick={() => setShowForm(!showForm)} className="mb-4 bg-blue-500 text-white py-2 px-4 rounded">
+      <button onClick={() => setShowForm(!showForm)} className="mb-4 bg-[#04BE16] text-white py-2 px-4 rounded">
         {showForm ? 'Cancel' : 'Add Task'}
       </button>
 
       {showForm && (
         <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow">
           <div>
-            <label className="mt-4 block text-gray-600 font-medium">Select Services:</label>
+            <label>Select Services:</label>
             <div className="flex items-center mt-2">
               <select
                 value={serviceInput}
                 onChange={(e) => setServiceInput(e.target.value)}
-                className="p-2 w-full border rounded-md focus:outline-none"
+                className="p-2 w-[100%] border rounded-md"
               >
                 <option value="" disabled>Select a service</option>
                 {services.map((service) => (
-                  <option key={service} value={service}>{service}</option>
+                  <option key={service} value={service}>
+                    {service}
+                  </option>
                 ))}
               </select>
               <button
@@ -121,22 +120,19 @@ const TaskManager = () => {
                 Add
               </button>
             </div>
-            <div className="mt-2">
+            <div className="mt-2 grid grid-cols-5 gap-2">
               {selectedServices.map((service) => (
-                <div key={service} className="flex items-center justify-between bg-gray-100 p-2 rounded mt-1">
-                  <span>{service}</span>
-                  <button
-                    onClick={() => removeSelectedService(service)}
-                    className="text-red-500 ml-2"
-                  >
-                    &times; {/* Close icon */}
+                <div key={service} className="flex items-center justify-between bg-gray-100 p-2 rounded">
+                  <span className="text-sm">{service}</span>
+                  <button onClick={() => removeSelectedService(service)} className="text-red-500 ml-2">
+                    &times;
                   </button>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-4">
+          <div>
             <label>Task Title:</label>
             <input
               type="text"
@@ -152,6 +148,28 @@ const TaskManager = () => {
             <textarea
               name="description"
               value={task.description}
+              onChange={handleInputChange}
+              required
+              className="border rounded p-2 w-full mb-4"
+            />
+          </div>
+          <div>
+            <label>Contact Person:</label>
+            <input
+              type="text"
+              name="contactPerson"
+              value={task.contactPerson}
+              onChange={handleInputChange}
+              required
+              className="border rounded p-2 w-full mb-4"
+            />
+          </div>
+          <div>
+            <label>Phone Number:</label>
+            <input
+              type="tel"
+              name="phoneNumber"
+              value={task.phoneNumber}
               onChange={handleInputChange}
               required
               className="border rounded p-2 w-full mb-4"
@@ -182,26 +200,33 @@ const TaskManager = () => {
 
       <h2 className="mt-6 text-lg font-bold">Selected Tasks</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {selectedServices.map((service) => {
-          const taskItem = tasks.find(t => t.title === service);
-          return (
-            taskItem && (
-              <div key={taskItem.title} className="bg-gray-200 p-4 rounded shadow">
-                <strong>{taskItem.title}</strong>
-                <p>{taskItem.description}</p>
-                <p>Due: {taskItem.dueDate.toLocaleDateString()}</p>
-                {taskItem.file && (
-                  <div>
-                    <img src={URL.createObjectURL(taskItem.file)} alt="Task File" className="mt-2" style={{ width: '100%', maxHeight: '150px', objectFit: 'cover' }} />
-                  </div>
-                )}
-                <button onClick={() => removeSelectedTask(taskItem.title)} className="text-red-500 mt-2">Remove</button>
-                <button onClick={() => handleEdit(tasks.indexOf(taskItem))} className="text-blue-500 mr-2">Edit</button>
-                <button onClick={() => handleDelete(tasks.indexOf(taskItem))} className="text-red-500">Delete</button>
-              </div>
-            )
-          );
-        })}
+        {tasks
+          .filter((task) => selectedServices.includes(task.title))
+          .map((taskItem, index) => (
+            <div key={index} className="bg-gray-200 p-4 rounded shadow">
+              <strong>{taskItem.title}</strong>
+              <p>{taskItem.description}</p>
+              <p>Contact: {taskItem.contactPerson}</p>
+              <p>Phone: {taskItem.phoneNumber}</p>
+              <p>Due: {taskItem.dueDate.toLocaleDateString()}</p>
+              {taskItem.file && (
+                <div>
+                  <img
+                    src={URL.createObjectURL(taskItem.file)}
+                    alt="Task File"
+                    className="mt-2"
+                    style={{ width: '100%', maxHeight: '150px', objectFit: 'cover' }}
+                  />
+                </div>
+              )}
+              <button onClick={() => handleEdit(index)} className="text-blue-500 mr-2">
+                Edit
+              </button>
+              <button onClick={() => handleDelete(index)} className="text-red-500">
+                Delete
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   );
