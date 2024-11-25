@@ -9,8 +9,8 @@ import sliderImg1 from '../assets/img5.jpg';
 import sliderImg2 from '../assets/img4.jpg';
 import sliderImg3 from '../assets/img3.jpg';
 import aboutImg from '../assets/img2.jpg';
-import howItWorksImg from '../assets/img1.jpg'; 
-import Footer from '../components/dashBoard/Footer';
+import howItWorksImg from '../assets/img1.jpg';
+import Footer from '../components/Footer';
 import LogoMarquee from '../components/LogoMarquee';
 
 const HomePage = () => {
@@ -113,7 +113,7 @@ const HomePage = () => {
                 variant="outlined"
                 color="primary"
                 size="large"
-                sx={{ borderColor: '#04BE16', mr:'40px', color: '#04BE16', '&:hover': { borderColor: '#02A715', color: '#FFFFFF', backgroundColor: '#F9DF00' } }}
+                sx={{ borderColor: '#04BE16', mr: '40px', color: '#04BE16', '&:hover': { borderColor: '#02A715', color: '#FFFFFF', backgroundColor: '#F9DF00' } }}
                 onClick={() => setIsLoginOpen(true)}
               >
                 Login
@@ -124,7 +124,7 @@ const HomePage = () => {
       </Box>
 
       {/* About Section */}
-      <Box sx={{ padding: '40px', backgroundColor: '#F9F9F9', padding: '120px'}}>
+      <Box sx={{ padding: '40px', backgroundColor: '#F9F9F9', padding: '120px' }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <img
@@ -133,19 +133,16 @@ const HomePage = () => {
               style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '40px' }}
             />
           </Grid>
-          <Grid item xs={12} md={6}> 
-          <Typography variant="h4" gutterBottom sx={{ textAlign: 'left', mb: 4, pt: 5 }}>
-          About Us
-        </Typography>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h4" gutterBottom sx={{ textAlign: 'left', mb: 4, pt: 5 }}>
+              About Us
+            </Typography>
             <Typography variant="body1">
-              Daily Spot helps you handle daily chores like shopping, car washes, and child drop-offs. Let us manage
-              your tasks so you can focus on what matters most!
-              Daily Spot helps you handle daily chores like shopping, car washes, and child drop-offs. Let us manage
-              your tasks so you can focus on what matters most!
-              Daily Spot helps you handle daily chores like shopping, car washes, and child drop-offs. Let us manage
-              your tasks so you can focus on what matters most!
-              Daily Spot helps you handle daily chores like shopping, car washes, and child drop-offs. Let us manage
-              your tasks so you can focus on what matters most!
+              At Daily Spot, we understand the demands of a busy lifestyle and the struggle to balance work, family, and personal errands. That’s why we’re here to help you handle daily chores with ease and efficiency. Whether it’s shopping for essentials, arranging a car wash, or ensuring your child gets safely to their destination, Daily Spot provides reliable and seamless solutions to simplify your day.
+
+              Our mission is to take the hassle out of everyday tasks so you can focus on what truly matters. With user-friendly tools and a dedicated team, we aim to make your experience stress-free and convenient, saving you time and energy.
+
+              Let Daily Spot take care of the small things so you can enjoy life’s bigger moments.
             </Typography>
           </Grid>
         </Grid>
@@ -153,104 +150,104 @@ const HomePage = () => {
 
       {/* Featured Services Section */}
       <Box sx={{ padding: '20px', mt: 8, ml: 18, mr: 18 }}>
-  <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
-    Our Services
-  </Typography>
-  <Grid container spacing={4}>
-    {/* School Drop-Off Service Card */}
-    <Grid item xs={12} md={4}>
-      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
-          <School fontSize="large" sx={{ color: '#02A715' }} />
-          <Typography variant="h6" sx={{ mt: 2 }}>
-            School Drop-Off
-          </Typography>
-          <Typography variant="body2" sx={{ mt: 1 }}>
-            Convenient school transportation for your child.
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
+        <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+          Our Services
+        </Typography>
+        <Grid container spacing={4}>
+          {/* School Drop-Off Service Card */}
+          <Grid item xs={12} md={4}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                <School fontSize="large" sx={{ color: '#02A715' }} />
+                <Typography variant="h6" sx={{ mt: 2 }}>
+                  School Drop-Off
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  Convenient school transportation for your child.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
 
-    {/* Shopping Services Card */}
-    <Grid item xs={12} md={4}>
-      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
-          <ShoppingCart fontSize="large" sx={{ color: '#02A715' }} />
-          <Typography variant="h6" sx={{ mt: 2 }}>
-            Shopping Services
-          </Typography>
-          <Typography variant="body2" sx={{ mt: 1 }}>
-            We’ll take care of your shopping needs, big or small.
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
+          {/* Shopping Services Card */}
+          <Grid item xs={12} md={4}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                <ShoppingCart fontSize="large" sx={{ color: '#02A715' }} />
+                <Typography variant="h6" sx={{ mt: 2 }}>
+                  Shopping Services
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  We’ll take care of your shopping needs, big or small.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
 
-    {/* Car Wash Service Card */}
-    <Grid item xs={12} md={4}>
-      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
-          <LocalCarWash fontSize="large" sx={{ color: '#02A715' }} />
-          <Typography variant="h6" sx={{ mt: 2 }}>
-            Car Wash
-          </Typography>
-          <Typography variant="body2" sx={{ mt: 1 }}>
-            Professional car washing services at your convenience.
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
-  </Grid>
-</Box>
+          {/* Car Wash Service Card */}
+          <Grid item xs={12} md={4}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                <LocalCarWash fontSize="large" sx={{ color: '#02A715' }} />
+                <Typography variant="h6" sx={{ mt: 2 }}>
+                  Car Wash
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  Professional car washing services at your convenience.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Box>
       <Box sx={{ padding: '20px', mt: 8, ml: 18, mr: 18 }}>
-  <Grid container spacing={4}>
-    {/* Laundry Service Card */}
-    <Grid item xs={12} md={4}>
-      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
-          <LocalLaundryService fontSize="large" sx={{ color: '#02A715' }} />
-          <Typography variant="h6" sx={{ mt: 2 }}>
-            Laundry
-          </Typography>
-          <Typography variant="body2" sx={{ mt: 1 }}>
-            Let's handle the tedious washing and ironing
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
+        <Grid container spacing={4}>
+          {/* Laundry Service Card */}
+          <Grid item xs={12} md={4}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                <LocalLaundryService fontSize="large" sx={{ color: '#02A715' }} />
+                <Typography variant="h6" sx={{ mt: 2 }}>
+                  Laundry
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  Let's handle the tedious washing and ironing
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
 
-    {/* Pharmacy Card */}
-    <Grid item xs={12} md={4}>
-      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
-          <LocalPharmacy fontSize="large" sx={{ color: '#02A715' }} />
-          <Typography variant="h6" sx={{ mt: 2 }}>
-            Medics
-          </Typography>
-          <Typography variant="body2" sx={{ mt: 1 }}>
-            Got a routine prescription? We can help you get it in your comfort zone
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
+          {/* Pharmacy Card */}
+          <Grid item xs={12} md={4}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                <LocalPharmacy fontSize="large" sx={{ color: '#02A715' }} />
+                <Typography variant="h6" sx={{ mt: 2 }}>
+                  Medics
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  Got a routine prescription? We can help you get it in your comfort zone
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
 
-    {/* Food-stuff processing Service Card */}
-    <Grid item xs={12} md={4}>
-      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
-          <Kitchen fontSize="large" sx={{ color: '#02A715' }} />
-          <Typography variant="h6" sx={{ mt: 2 }}>
-            Food Stuff Prep
-          </Typography>
-          <Typography variant="body2" sx={{ mt: 1 }}>
-           We help clients prepare food stuffs amd make them ready for cooking by washing, peeling and chopping of food items like vegtables, tubers etc on request
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
-  </Grid>
-</Box>
+          {/* Food-stuff processing Service Card */}
+          <Grid item xs={12} md={4}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                <Kitchen fontSize="large" sx={{ color: '#02A715' }} />
+                <Typography variant="h6" sx={{ mt: 2 }}>
+                  Food Stuff Prep
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  We help clients prepare food stuffs amd make them ready for cooking by washing, peeling and chopping of food items like vegtables, tubers etc on request
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Box>
 
 
       {/* How It Works Section */}
@@ -302,12 +299,12 @@ const HomePage = () => {
 
       {/* Login and SignUp Modals */}
       <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
-      <SignUp isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} /> 
+      <SignUp isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
 
-        <LogoMarquee />
+      <LogoMarquee />
 
       {/* Footer starts here */}
-      <Footer className='mt-[10rem]'/>
+      <Footer className='mt-[10rem]' />
     </div>
   );
 };

@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react'; 
 import { FaTasks, FaChartLine, FaUserClock, FaSun, FaMoon, FaSignOutAlt } from 'react-icons/fa';
-import TaskManager from './TaskManager'; // Import the TaskManager component 
-import UserAvatar from '../../assets/user-avatar.png' 
-import siteLogo from '../../assets/d-spot-logo.png' 
-import Swal from 'sweetalert2'; // Import SweetAlert2 
-import Login from '../login';
+import { useNavigate } from 'react-router-dom';
+import TaskManager from './TaskManager';
+import UserAvatar from '../../assets/user-avatar.png';
+import siteLogo from '../../assets/d-spot-logo.png';
+import Swal from 'sweetalert2';
+import Login from '../../components/login'; 
+import { FaClock } from 'react-icons/fa';
+// import TaskDisplay from './TaskDisplay';
 
 const UserDashboard = ({ isDarkTheme, toggleTheme }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
   const [showPlans, setShowPlans] = useState(false);
-  const [activeComponent, setActiveComponent] = useState(null); // State to manage active component
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // State to control the login modal visibility
-// const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const [activeComponent, setActiveComponent] = useState('default');
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [userName, setUserName] = useState(() => {
+    const userData = localStorage.getItem('userData');
+    return userData ? JSON.parse(userData).firstName : 'User';
+  });
+  const [isTaskManagerOpen, setIsTaskManagerOpen] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -31,13 +40,12 @@ const UserDashboard = ({ isDarkTheme, toggleTheme }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <h2 className="text-2xl font-bold text-gray-800">Loading...</h2>
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-500"></div>
       </div>
     );
   }
 
   const handleLogout = () => {
-    // Show SweetAlert2 confirmation before logging out
     Swal.fire({
       title: 'Are you sure?',
       text: 'You will be logged out of your account!',
@@ -48,36 +56,86 @@ const UserDashboard = ({ isDarkTheme, toggleTheme }) => {
       confirmButtonText: 'Yes, log out!',
     }).then((result) => {
       if (result.isConfirmed) {
-        // Here we can handle the logout logic (e.g., clearing user session)
-        // Open the login modal instead of redirecting
+        localStorage.removeItem('userToken');
+        localStorage.removeItem('userData');
         setIsLoginModalOpen(true);
       }
     });
   };
 
-  const closeLoginModal = () => {
-    setIsLoginModalOpen(false);
+  const handleOpenTaskManager = () => {
+    setIsTaskManagerOpen(true);
+  };
+
+  const handleCloseTaskManager = () => {
+    setIsTaskManagerOpen(false);
+  };
+
+  // Function to render the active component
+  const renderActiveComponent = () => {
+    switch (activeComponent) {
+      case 'createTask':
+        return <TaskManager isOpen={isTaskManagerOpen} onClose={handleCloseTaskManager} />;
+      case 'monitorTasks':
+        return (
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold mb-4">Monitor Tasks</h2>
+            {/* Add your Monitor Tasks content here */}
+            <div>Monitor Tasks Component Content</div>
+          </div>
+        );
+      case 'history':
+        return (
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold mb-4">History & Stats</h2>
+            {/* Add your History & Stats content here */}
+            <div>History & Stats Component Content</div>
+          </div>
+        );
+      default:
+        return (
+          <div className="bg-white p-6 rounded-lg shadow-md text-center">
+            <h2 className="text-xl font-bold mb-4">Welcome to Your Dashboard</h2>
+            <p className="text-gray-600">Please select a task option from the sidebar to get started.</p>
+          </div>
+        );
+    }
   };
 
   return (
-    <div className={`flex h-screen ${isDarkTheme ? 'bg-gray-900 text-white' : 'bg-gray-300 text-gray-800'}`}>
+    <div className={`flex h-screen ${isDarkTheme ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-800'}`}>
       {/* Sidebar */}
-      <div className={`w-64 ${isDarkTheme ? 'bg-[#04BE16]' : 'bg-[#ffffff]'} flex flex-col justify-between p-4`}>
+      <div className={`w-64 ${isDarkTheme ? 'bg-gray-800' : 'bg-white'} flex flex-col justify-between p-4 shadow-lg`}>
         {/* Avatar and Welcome Message */}
         <div className="flex flex-col items-center">
           <img
             src={UserAvatar}
             alt="User Avatar"
-            className="rounded-full h-20 w-20 mb-4 border-2 border-white"
+            className="rounded-full h-20 w-20 mb-4 border-2 border-green-500"
           />
-          <h2 className="text-lg font-semibold">Welcome, [User]</h2>
+          <h2 className="text-lg font-semibold">Welcome, {userName}</h2>
         </div>
 
         {/* Navigation Links */}
         <nav className="mt-8 space-y-4">
-          <SidebarItem icon={<FaTasks />} label="Create Task" onClick={() => setActiveComponent(<TaskManager />)} />
-          <SidebarItem icon={<FaChartLine />} label="Monitor Tasks" onClick={() => setActiveComponent(<div>Monitor Tasks Component</div>)} />
-          <SidebarItem icon={<FaUserClock />} label="History & Stats" onClick={() => setActiveComponent(<div>History & Stats Component</div>)} />
+          <SidebarItem 
+            icon={<FaTasks />} 
+            label="Create Task" 
+            onClick={() => setActiveComponent('createTask')}
+            active={activeComponent === 'createTask'}
+          />
+          <SidebarItem 
+            icon={<FaChartLine />} 
+            label="Monitor Tasks" 
+            onClick={() => setActiveComponent('monitorTasks')}
+            active={activeComponent === 'monitorTasks'}
+          />
+          <SidebarItem 
+            icon={<FaUserClock />} 
+            label="History & Stats" 
+            onClick={() => setActiveComponent('history')}
+            active={activeComponent === 'history'}
+          />
         </nav>
 
         {/* Support Link and Logo */}
@@ -88,54 +146,65 @@ const UserDashboard = ({ isDarkTheme, toggleTheme }) => {
               {isDarkTheme ? <FaSun /> : <FaMoon />}
             </button> 
           </div>
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <a href="/"> <img src={siteLogo} alt="Logo" className="w-34 h-auto" /></a>
-          </div> 
+          </div>  */}
         </div> 
+
         <button
-          className="mt-6 flex items-center justify-center w-full px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md"
+          className="mt-6 flex items-center justify-center w-20  py-2 px-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors duration-200 ml-16"
           onClick={handleLogout}
         >
-          <FaSignOutAlt className="mr-2" /> Logout
+          <FaSignOutAlt className="ml-2" /> 
         </button>
       </div>
 
       {/* Main Dashboard Content */}
-      <div className="flex-1 p-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">User Dashboard</h1>
-          <p className="text-lg">Current Time: {currentTime}</p>
-        </div>
-        <p className="mt-2">Here you can manage your tasks, track progress, view assigned history, and more.</p>
-
-        {/* Render active component */}
-        <div className="mt-6 space-y-4">
-          {activeComponent || <div>Please select a task option from the sidebar.</div>}
-        </div>
-      </div>
-
-      {/* Login Modal */} 
-      {/* <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} /> */}
-      {isLoginModalOpen && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white w-80 p-6 rounded-md">
-            <h3 className="text-xl font-semibold mb-4">Login</h3>
-            <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-md" onClick={closeLoginModal}>
-              <Link to='/'>Back to Home</Link>
-            </button>
+      <div className="flex-1 p-6 overflow-auto">
+        <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-gray-800">User Dashboard</h1>
+            <p className="text-lg text-gray-600"><FaClock className="text-green-600 text-xl animate-pulse"/>{currentTime}</p>
           </div>
         </div>
+
+        {/* Render active component */}
+        <div className="mt-6">
+          {renderActiveComponent()}
+        </div>
+
+        {/* <div className="flex-1 overflow-auto">
+          <TaskDisplay />
+        </div> */}
+      </div>
+
+      {/* Login Modal */}
+      {isLoginModalOpen && (
+        <Login 
+          isOpen={isLoginModalOpen}
+          onClose={() => {
+            setIsLoginModalOpen(false);
+            navigate('/');
+          }}
+          showSignUpModal={() => {
+            setIsLoginModalOpen(false);
+          }}
+        />
       )}
     </div>
   );
 };
 
-// Reusable Sidebar Item
-const SidebarItem = ({ icon, label, onClick }) => (
-  <div className="flex items-center p-2 hover:bg-[#04BE16] hover:text-white rounded-md cursor-pointer" onClick={onClick}>
+// Sidebar Item Component
+const SidebarItem = ({ icon, label, onClick, active }) => (
+  <div 
+    className={`flex items-center p-2 rounded-md cursor-pointer transition-colors duration-200
+      ${active ? 'bg-[#04BE16] text-white' : 'hover:bg-[#04BE16] hover:text-white'}`}
+    onClick={onClick}
+  >
     <div className="text-xl">{icon}</div>
     <span className="ml-4 text-lg">{label}</span>
-  </div> 
+  </div>
 );
 
 export default UserDashboard;

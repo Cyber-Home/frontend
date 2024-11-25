@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, TextField, Button, Grid, IconButton, Divider } from '@mui/material';
 import { Facebook, Twitter, Instagram, LinkedIn, ArrowUpward } from '@mui/icons-material';
-import siteLogo from '../../assets/d-spot-logo.png';
+import siteLogo from '../assets/d-spot-logo.png';
 
 
 const Footer = () => {
